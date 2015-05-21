@@ -49,6 +49,7 @@ public class WebIntent extends CordovaPlugin {
                 JSONObject obj = args.getJSONObject(0);
                 String type = obj.has("type") ? obj.getString("type") : null;
                 Uri uri = obj.has("url") ? resourceApi.remapUri(Uri.parse(obj.getString("url"))) : null;
+                String packageName = obj.has("packageName") ? obj.getString("packageName") : null;
                 JSONObject extras = obj.has("extras") ? obj.getJSONObject("extras") : null;
                 Map<String, String> extrasMap = new HashMap<String, String>();
 
@@ -62,7 +63,7 @@ public class WebIntent extends CordovaPlugin {
                     }
                 }
 
-                startActivity(obj.getString("action"), uri, type, extrasMap);
+                startActivity(obj.getString("action"), uri, type, packageName, extrasMap);
                 //return new PluginResult(PluginResult.Status.OK);
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
                 return true;
@@ -173,7 +174,7 @@ public class WebIntent extends CordovaPlugin {
         }
     }
 
-    void startActivity(String action, Uri uri, String type, Map<String, String> extras) {
+    void startActivity(String action, Uri uri, String type, String packageName, Map<String, String> extras) {
         Intent i = (uri != null ? new Intent(action, uri) : new Intent(action));
 
         if (type != null && uri != null) {
@@ -182,6 +183,10 @@ public class WebIntent extends CordovaPlugin {
             if (type != null) {
                 i.setType(type);
             }
+        }
+
+        if (packageName != null) {
+          i.setPackage(packageName);
         }
 
         for (String key : extras.keySet()) {
