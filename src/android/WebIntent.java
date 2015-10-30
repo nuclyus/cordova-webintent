@@ -27,6 +27,7 @@ import org.apache.cordova.PluginResult;
 *
 * @author boris@borismus.com
 * with packagename
+x
 *
 */
 public class WebIntent extends CordovaPlugin {
