@@ -26,6 +26,7 @@ import org.apache.cordova.PluginResult;
 * intents can be handled by PhoneGap web applications.
 *
 * @author boris@borismus.com
+* with packagename
 *
 */
 public class WebIntent extends CordovaPlugin {
